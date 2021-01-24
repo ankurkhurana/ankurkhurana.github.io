@@ -1,0 +1,37 @@
+name: .NET
+
+on:
+  push:
+    branches: [ main ]
+
+jobs:
+  build:
+
+    runs-on: ubuntu-latest
+
+    steps:
+    - uses: actions/checkout@v2
+      with:
+        fetch-depth: 0
+    
+    - name: Setup .NET Core
+      uses: actions/setup-dotnet@v1
+      with:
+        dotnet-version: 5.0.x
+    
+    - name: Publish
+      run: dotnet publish TestApplication/TestApplication.csproj --configuration Release
+    
+    # Publish the website
+    - name: GitHub Pages action
+      if: ${{ github.ref == 'refs/heads/main' }} # Publish only when the push is on master
+      uses: peaceiris/actions-gh-pages@v3.6.1
+      with:
+        publish_branch: gh-pages
+        publish_dir: TestApplication/bin/Release/net5.0/publish/wwwroot
+        allow_empty_commit: false
+        keep_files: false
+        force_orphan: true
+        # TODO uncomment the following line if you have a custom domain name
+        cname: localretail.ca
+    
