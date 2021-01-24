@@ -30,9 +30,3 @@ jobs:
         github_token: ${{ secrets.PUBLISH_TOKEN }}
         publish_branch: gh-pages
         publish_dir: TestApplication/bin/Release/net5.0/publish/wwwroot
-        allow_empty_commit: false
-        keep_files: false
-        force_orphan: true
-        # TODO uncomment the following line if you have a custom domain name
-        cname: localretail.ca
-    
